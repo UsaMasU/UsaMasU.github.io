@@ -1,1 +1,1 @@
-# hj-homeworks
+Netology homeworks
