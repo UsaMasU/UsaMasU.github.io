@@ -21,7 +21,7 @@ function counterControl(event) {
 }
 
 const counter = document.querySelector('.wrap #counter');
-localStorage.getItem('counter') == null ? counter.textContent = localStorage.setItem('counter', 0) : counter.textContent = localStorage.getItem('counter');
+(localStorage.getItem('counter') == null || localStorage.getItem('counter') == undefined) ? counter.textContent = localStorage.setItem('counter', 0) : counter.textContent = localStorage.getItem('counter');
 
 const counterButtons = document.querySelectorAll('.wrap .wrap-btns button')
 Array.from(counterButtons).forEach(btn => { 

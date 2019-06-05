@@ -5,9 +5,9 @@ const sizeURL = 'https://neto-api.herokuapp.com/cart/sizes';
 const busketURL = 'https://neto-api.herokuapp.com/cart';
 
 function fillSwatch(response, swatchForm, snippet, itemMem, eventFunc) {
-  localStorage.getItem(itemMem) == null ? localStorage.setItem(itemMem, '') : localStorage.getItem(itemMem);
+  (localStorage.getItem(itemMem) == null || localStorage.getItem(itemMem) == undefined) ? localStorage.setItem(itemMem, '') : localStorage.getItem(itemMem);
   for(let item in response) swatchForm.innerHTML += snippet(response[item], localStorage.getItem(itemMem));
-  eventFunc.addEventListener('click', (event) => {if(event.target.tagName == 'INPUT') localStorage.setItem(itemMem, event.target.value)});         
+  eventFunc.addEventListener('click', event => {if(event.target.tagName == 'INPUT') localStorage.setItem(itemMem, event.target.value)});         
 }
 
 function responseJSON(event) {
