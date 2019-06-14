@@ -29,8 +29,8 @@ document.addEventListener('mousemove', event => {
 document.addEventListener('mouseup', event => {
 	 if(itemIcon) {
 		  const check = document.elementFromPoint(event.clientX, event.clientY)
-		  if(check) {
-			   check.appendChild(itemIcon);
+    if(check) {
+			   if(check.id == 'trash_bin') check.appendChild(itemIcon);
 			   itemIcon.classList.remove('moving');			
 			   itemIcon = null;
 		  }
