@@ -1,0 +1,101 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        video {
+            width: 100%
+        }
+
+        
+        /*video {
+            position: absolute;
+            top: -10000;
+            left: -10000;
+        }
+
+        canvas {
+            position: absolute;
+            top: -10000;
+            left: -10000;
+        }*/
+    </style>
+</head>
+<body>
+    <video class='life'></video>
+    <canvas id="canvas"></canvas>
+    <img>
+    <button class='record'>Поехали!</button>
+    <button class='stop'>Stop!</button>
+    <video class='rec'></video>
+    <canvas id="canvasRec"></canvas>
+    
+    <script>
+
+        const video = document.querySelector('.life');
+        const image = document.querySelector('img');
+        //const canvas = document.getElementById('canvas');
+        //const ctx = canvas.getContext('2d');
+        
+        const videoR = document.querySelector('.rec');
+        //const canvasR = document.getElementById('canvasRec');
+        //const ctxR = canvasR.getContext('2d');
+
+        document.querySelector('button').onclick = () => {
+            navigator.mediaDevices.getUserMedia({ audio: false, video: true })
+                .then(function(stream) {
+                    console.log(video.srcObject = stream);
+                    video.onloadedmetadata = function(e) {
+                        video.play();
+                    };
+                    
+                    let recorder = new MediaRecorder(stream); 
+                    let chunks = []; 
+                    recorder.addEventListener('dataavailable', (e) => chunks.push(e.data)); 
+                    
+                    recorder.addEventListener('stop', (e) => {                      
+                      const recorded = new Blob(chunks, { 'type' : recorder.mimeType });
+                      chunks = null; 
+                      recorder = stream = null; 
+                      
+                      
+                      
+                      video.src = URL.createObjectURL(recorded); 
+                      video.onloadedmetadata = function(e) {
+                        video.play();
+                      };
+                      
+                      //videoR.src = URL.createObjectURL(recorded); 
+                      //videoR.onloadedmetadata = function(e) {
+                      //  videoR.play();
+                      //};
+                    }); 
+                    
+                    recorder.start();
+                    
+                    document.querySelector('.stop').addEventListener('click', event => {
+                      
+                      video.srcObject = null;
+                      stream.getTracks().forEach(track => track.stop())
+                      
+                      recorder.stop();
+                      
+                      
+                      
+                      document.querySelector('.stop').remove();
+                    });
+                
+                
+                    
+                    
+                })
+                
+                
+           
+                
+                .catch(function(err) {
+                    console.log('oh noes');
+                });
+        };
+    </script>
+</body>
+</html>
