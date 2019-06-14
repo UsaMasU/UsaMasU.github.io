@@ -11,7 +11,6 @@ textArea.addEventListener('focus', () => {
 textArea.addEventListener('blur', () => {
   bullEyes.classList.remove('active');
   bullMessage.classList.remove('view');
-  textArea.value = null;
 })
 
 textArea.addEventListener('input', () => {
